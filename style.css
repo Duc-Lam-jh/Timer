@@ -1,0 +1,42 @@
+/*
+css guide{
+  //dimensions
+  //display
+  //position
+  //decoration
+  //text
+}
+*/
+
+body{
+  margin: 0;
+  padding: 0;
+
+  background-color: rgb(18, 58, 131);
+}
+
+.container{
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.timer{
+  width: 500px;
+  height: 200px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  background-color: rgb(22, 73, 168);
+  border-radius: 20px;
+
+  font-size: 75px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
