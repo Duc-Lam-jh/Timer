@@ -1,4 +1,5 @@
-/* ======== Data ======== */
+import Timer from "./timer.js";
+
 const questions = [
   {
     question: 'What is the color theme of this page?',
@@ -35,56 +36,14 @@ const questions = [
 ]
 let questionNumber = 0;
 
-/* ======== Functions ======== */
-function Timer(interval, container) {
-  const timerContainer = document.getElementById(container);
-  const timer = timerContainer.querySelector('#timer');
-  let timeElapsed = new Date(0);
-  let startingPoint = new Date();
-  let start;
-
-  function setUpTimerButtons() {
-    const startButton = timerContainer.querySelector('#start-button');
-    const stopButton = timerContainer.querySelector('#stop-button');
-
-    startButton.addEventListener('click', startTimer);
-    stopButton.addEventListener('click', stopTimer);
-  }
-
-  function updateTimer() {
-    timeElapsed.setTime(Date.now() - startingPoint);
-    timer.innerHTML = timeElapsed.toUTCString().substring(20, 25);
-  } 
-
-  function startTimer() {
-    if(start) {
-      clearInterval(start);
-    } else {
-      //do nothing
-    }
-    resetTimer();
-    start = setInterval(updateTimer, interval);
-  }
-
-  function stopTimer() {
-    clearInterval(start);
-  }
-
-  function resetTimer() {
-    timeElapsed = new Date(0);
-    startingPoint = new Date();
-  }
-
-  return{
-    setUpTimerButtons,
-  }
-
+function getRandomQuestion(questions) {
+  questionNumber = Math.floor(Math.random() * questions.length);
+  return questions[questionNumber].question;
 }
 
-function getRandomQuestion(questions) {
+function showQuestion() {
   showElement('interactive-section');
-  questionNumber = Math.floor(Math.random() * questions.length);
-  document.getElementById('question').innerHTML = questions[questionNumber].question;
+  document.getElementById('question').innerHTML = getRandomQuestion(questions);
 }
 
 function checkAnswer(answer) {
@@ -97,41 +56,64 @@ function checkAnswer(answer) {
 }
 
 function alertResult() {
-  if(!isElementActive('interactive-section')) {
+  if (!isElementActive('interactive-section')) {
     return;
   }
   const answer = document.getElementById('answer').value;
   const result = checkAnswer(answer);
-  if (result){
+  if (result) {
     alert('Bạn đã trả lời đúng!');
   } else {
     alert('Bạn đã trả lời sai!');
   }
+  resetAnswer();
+}
+
+function resetAnswer(){
+  hideElement('interactive-section');
+  document.getElementById('answer').value = '';
 }
 
 function showElement(elementId) {
   const element = document.getElementById(elementId);
-  if(element.classList.contains('active')) {
+  if (element.classList.contains('active')) {
     return
   }
   element.classList.remove('inactive');
   element.classList.add('active');
 }
 
-function isElementActive(elementId){
+function hideElement(elementId) {
   const element = document.getElementById(elementId);
-  if(element.classList.contains('active')) {
-    return true;
+  if (element.classList.contains('inactive')) {
+    return
   }
- return false;
+  element.classList.remove('active');
+  element.classList.add('inactive');
 }
 
-/* ======== Execution ======== */
-const timer = Timer(1000, 'timer-container');
+function isElementActive(elementId) {
+  const element = document.getElementById(elementId);
+  if (element.classList.contains('active')) {
+    return true;
+  }
+  return false;
+}
+
+const timer = Timer(1000, {
+  containerId: 'timer-container',
+  timerId: 'timer',
+  startButtonId: 'start-button',
+  stopButtonId: 'stop-button',
+  resetButtonId: 'reset-button'
+});
 timer.setUpTimerButtons();
 
 const startButton = document.getElementById('start-button');
-startButton.addEventListener('click', function() { getRandomQuestion(questions) });
+startButton.addEventListener('click', function () { showQuestion() });
 
 const stopButton = document.getElementById('stop-button');
-stopButton.addEventListener('click', function() { alertResult() });
+stopButton.addEventListener('click', function () { alertResult() });
+
+const resetButton = document.getElementById('reset-button');
+resetButton.addEventListener('click', function () { resetAnswer() });
