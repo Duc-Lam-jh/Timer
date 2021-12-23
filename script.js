@@ -5,8 +5,24 @@ const questions = [
     answer: 'blue'
   },
   {
-    question: 'What is 4 + 4?',
+    question: 'What is 4 + 4? (answer in number)',
     answer: '8'
+  },
+  {
+    question: 'What is 4 x 4? (answer in number)',
+    answer: '16'
+  },
+  {
+    question: 'What is 2 + 4? (answer in number)',
+    answer: '6'
+  },
+  {
+    question: 'What is 2 + 10? (answer in number)',
+    answer: '12'
+  },
+  {
+    question: 'What is 4 : 4? (answer in number)',
+    answer: '1'
   },
   {
     question: 'What country is Hanoi in?',
@@ -40,6 +56,11 @@ function Timer(interval, container){
   } 
 
   function startTimer() {
+    if(start) {
+      clearInterval(start);
+    } else {
+      //do nothing
+    }
     resetTimer();
     start = setInterval(updateTimer, interval);
   }
@@ -70,3 +91,8 @@ const timer = Timer(1000, 'timer-container');
 timer.setUpTimerButtons();
 
 getRandomQuestion(questions);
+
+const startButton = document.getElementById('start-button');
+startButton.addEventListener('click', function() { getRandomQuestion(questions) });
+
+const stopButton = document.getElementById('stop-button');
