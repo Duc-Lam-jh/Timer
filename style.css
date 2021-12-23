@@ -13,6 +13,9 @@ body{
   padding: 0;
 
   background-color: rgb(18, 58, 131);
+  box-sizing: border-box;
+
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .container{
@@ -25,10 +28,22 @@ body{
   align-items: center;
 }
 
-.timer{
+.timer-container{
   width: 500px;
-  height: 200px;
+  height: 400px;
 
+  padding: 10px;
+
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 3fr 1fr;
+
+  background-color: rgb(48, 118, 248);
+  border-radius: 20px;
+}
+
+.timer-container *{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,7 +51,30 @@ body{
   color: white;
   background-color: rgb(22, 73, 168);
   border-radius: 20px;
+}
+
+.timer{
+  grid-column: 1/span 2;
+  grid-row: 1;
 
   font-size: 75px;
-  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.button{
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.button:hover{
+  background-color: rgb(29, 84, 187);
+}
+
+#start-button{
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#stop-button{
+  grid-column: 2;
+  grid-row: 2;
 }
