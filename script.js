@@ -33,16 +33,17 @@ const questions = [
     answer: 'adele'
   }
 ]
+let questionNumber = 0;
 
 /* ======== Functions ======== */
-function Timer(interval, container){
+function Timer(interval, container) {
   const timerContainer = document.getElementById(container);
   const timer = timerContainer.querySelector('#timer');
   let timeElapsed = new Date(0);
   let startingPoint = new Date();
   let start;
 
-  function setUpTimerButtons(){
+  function setUpTimerButtons() {
     const startButton = timerContainer.querySelector('#start-button');
     const stopButton = timerContainer.querySelector('#stop-button');
 
@@ -50,7 +51,7 @@ function Timer(interval, container){
     stopButton.addEventListener('click', stopTimer);
   }
 
-  function updateTimer(){
+  function updateTimer() {
     timeElapsed.setTime(Date.now() - startingPoint);
     timer.innerHTML = timeElapsed.toUTCString().substring(20, 25);
   } 
@@ -80,19 +81,57 @@ function Timer(interval, container){
 
 }
 
-function getRandomQuestion(data){
-  const questionNumber = Math.floor(Math.random() * data.length);
-  document.getElementById('question').innerHTML = data[questionNumber].question;
+function getRandomQuestion(questions) {
+  showElement('interactive-section');
+  questionNumber = Math.floor(Math.random() * questions.length);
+  document.getElementById('question').innerHTML = questions[questionNumber].question;
 }
 
+function checkAnswer(answer) {
+  const rightAnswer = questions[questionNumber].answer;
+  answer = answer.toLowerCase();
+  if (answer === rightAnswer) {
+    return true;
+  }
+  return false;
+}
+
+function alertResult() {
+  if(!isElementActive('interactive-section')) {
+    return;
+  }
+  const answer = document.getElementById('answer').value;
+  const result = checkAnswer(answer);
+  if (result){
+    alert('Bạn đã trả lời đúng!');
+  } else {
+    alert('Bạn đã trả lời sai!');
+  }
+}
+
+function showElement(elementId) {
+  const element = document.getElementById(elementId);
+  if(element.classList.contains('active')) {
+    return
+  }
+  element.classList.remove('inactive');
+  element.classList.add('active');
+}
+
+function isElementActive(elementId){
+  const element = document.getElementById(elementId);
+  if(element.classList.contains('active')) {
+    return true;
+  }
+ return false;
+}
 
 /* ======== Execution ======== */
 const timer = Timer(1000, 'timer-container');
 timer.setUpTimerButtons();
 
-getRandomQuestion(questions);
-
 const startButton = document.getElementById('start-button');
 startButton.addEventListener('click', function() { getRandomQuestion(questions) });
 
 const stopButton = document.getElementById('stop-button');
+stopButton.addEventListener('click', function() { alertResult() });
