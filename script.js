@@ -48,8 +48,7 @@ function showQuestion() {
 
 function checkAnswer(answer) {
   const rightAnswer = questions[questionNumber].answer;
-  answer = answer.toLowerCase();
-  if (answer === rightAnswer) {
+  if (answer.toLowerCase() === rightAnswer) {
     return true;
   }
   return false;
@@ -62,9 +61,9 @@ function alertResult() {
   const answer = document.getElementById('answer').value;
   const result = checkAnswer(answer);
   if (result) {
-    alert('Bạn đã trả lời đúng!');
+    alert('You answered correctly!');
   } else {
-    alert('Bạn đã trả lời sai!');
+    alert('Your answer was wrong!');
   }
   resetAnswer();
 }
