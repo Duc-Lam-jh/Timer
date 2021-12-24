@@ -59,8 +59,7 @@ function alertResult() {
     return;
   }
   const answer = document.getElementById('answer').value;
-  const result = checkAnswer(answer);
-  if (result) {
+  if (checkAnswer(answer)) {
     alert('You answered correctly!');
   } else {
     alert('Your answer was wrong!');
@@ -109,10 +108,10 @@ const timer = Timer(1000, {
 timer.setUpTimerButtons();
 
 const startButton = document.getElementById('start-button');
-startButton.addEventListener('click', function () { showQuestion() });
+startButton.addEventListener('click', showQuestion);
 
 const stopButton = document.getElementById('stop-button');
-stopButton.addEventListener('click', function () { alertResult() });
+stopButton.addEventListener('click', alertResult);
 
 const resetButton = document.getElementById('reset-button');
-resetButton.addEventListener('click', function () { resetAnswer() });
+resetButton.addEventListener('click', resetAnswer);

@@ -12,14 +12,14 @@ function Timer(interval, { }) {
   const stopButtonId = arguments[1].stopButtonId ? arguments[1].stopButtonId : 'stop-button';
   const resetButtonId = arguments[1].resetButtonId ? arguments[1].resetButtonId : 'reset-button';
   
-  const timerContainer = document.getElementById(timerContainerId) ? document.getElementById(timerContainerId) : 'container';
+  const timerContainer = document.getElementById(timerContainerId);
   const timer = timerContainer.querySelector('#' + timerId);
 
   let timeElapsed = new Date(0);
   let startingPoint = new Date();
   let start;
 
-  function setUpTimerButtons() {
+  const setUpTimerButtons = () => {
     const startButton = timerContainer.querySelector('#' + startButtonId);
     startButton.addEventListener('click', startTimer);
     
@@ -30,12 +30,12 @@ function Timer(interval, { }) {
     resetButton.addEventListener('click', resetTimer);
   }
 
-  function updateTimer() {
+  const updateTimer = () => {
     timeElapsed.setTime(Date.now() - startingPoint);
     timer.innerHTML = timeElapsed.toUTCString().substring(20, 25);
   } 
 
-  function startTimer() {
+  const startTimer = () => {
     if(start) {
       clearInterval(start);
     } else {
@@ -45,7 +45,7 @@ function Timer(interval, { }) {
     start = setInterval(updateTimer, interval);
   }
 
-  function stopTimer() {
+  const stopTimer = () => {
     if(start) {
       clearInterval(start);
     } else {
@@ -53,7 +53,7 @@ function Timer(interval, { }) {
     }
   }
 
-  function resetTimer() {
+  const resetTimer = () => {
     stopTimer();
     timeElapsed = new Date(0);
     startingPoint = new Date();
