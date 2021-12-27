@@ -73,21 +73,21 @@ function resetAnswer(){
 }
 
 function showElement(elementId) {
-  const element = document.getElementById(elementId);
-  if (element.classList.contains('active')) {
+  const elementClasslist = document.getElementById(elementId).classList;
+  if (elementClasslist.contains('active')) {
     return
   }
-  element.classList.remove('inactive');
-  element.classList.add('active');
+  elementClasslist.remove('inactive');
+  elementClasslist.add('active');
 }
 
 function hideElement(elementId) {
-  const element = document.getElementById(elementId);
-  if (element.classList.contains('inactive')) {
+  const elementClasslist = document.getElementById(elementId).classList;
+  if (elementClasslist.contains('inactive')) {
     return
   }
-  element.classList.remove('active');
-  element.classList.add('inactive');
+  elementClasslist.remove('active');
+  elementClasslist.add('inactive');
 }
 
 function isElementActive(elementId) {
